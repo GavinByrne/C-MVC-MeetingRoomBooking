@@ -1,0 +1,141 @@
+﻿@model MRBS.Models.MonthlyBookingTable
+@using MRBS.Models
+@using BookingSystemData.DbModels
+
+<div class="SelectedRooms">
+    <ul style="list-style-type:none;">
+        <li style="text-decoration:underline;">Rooms</li>
+        @foreach (Room room in Model.Rooms)
+            {
+            <li>
+                <a href="@Url.Action("MonthlyBookings", "Booking" , new {date=Model.Today.AddDays(-(((int)Model.Today.DayOfWeek) + 6) % 7), roomName=room.RoomName })" style="font-weight:bold; color:black;">@room.RoomName</a>
+            </li>
+        }
+    </ul>
+</div>
+
+<div class="calendar_Views2" style="clear:both">
+    <div class="month_after">@Helpers.calendar(Model.Today.AddMonths(1), Model.Today.Year, Model.Today.AddMonths(1).Month, "MonthlyBookings", ViewBag.SelectRoom)</div>
+    <div class="month_of">@Helpers.calendar(Model.Today, Model.Today.Year, Model.Today.Month, "MonthlyBookings", ViewBag.SelectRoom)</div>
+    <div class="month_before">@Helpers.calendar(Model.Today.AddMonths(-1), Model.Today.Year, Model.Today.AddMonths(-1).Month, "MonthlyBookings", ViewBag.SelectRoom) </div>
+</div>
+
+<div class="Date2">
+    <h3> @Model.Today.ToString("MMMM") @Model.Today.Year - @ViewBag.SelectRoom </h3>
+</div>
+
+<div class="paging_daily" style="clear:both;">
+    <div class="day_before">
+        <a href="@Url.Action("MonthlyBookings","Booking", new { date=Model.Today.AddMonths(-1).ToString("yyyy-MM-dd"), roomName=ViewBag.SelectRoom})"> << Go To Month Before </a>
+    </div>
+    <div class="day_of">
+        <a href="@Url.Action("MonthlyBookings","Booking", new { date= DateTime.Today, roomName=ViewBag.SelectRoom})"> Go To Current Month </a>
+    </div>
+    <div class="day_after">
+        <a href="@Url.Action("MonthlyBookings","Booking", new { date=Model.Today.AddMonths(1).ToString("yyyy-MM-dd"), roomName=ViewBag.SelectRoom})"> Go To Month After >> </a>
+    </div>
+</div>
+
+<div class="tableDay">
+    <table class="day_main" style="table-layout:fixed;">
+        <thread>
+            <TR>
+                <TH ALIGN=center>Monday</TH>
+                <TH ALIGN=center>Tuesday</TH>
+                <TH ALIGN=center>Wednesday</TH>
+                <TH ALIGN=center>Thursday</TH>
+                <TH ALIGN=center>Friday</TH>
+                <TH ALIGN=center>Saturday</TH>
+                <TH ALIGN=center>Sunday</TH>
+            </TR>
+        </thread>
+        <tbody>
+            @{ 
+                int daysInMonth = DateTime.DaysInMonth(Model.Today.Year, Model.Today.Month);
+                var firstDayOfMonth = new DateTime(Model.Today.Year, Model.Today.Month, 1);
+                var monthStartIndex = (((int)firstDayOfMonth.DayOfWeek) + 6) % 7;
+                int chalendarCells;
+
+                if ((((firstDayOfMonth.DayOfWeek.ToString() == "Saturday") || (firstDayOfMonth.DayOfWeek.ToString() == "Sunday")) && daysInMonth == 31) || ((firstDayOfMonth.DayOfWeek.ToString() == "Sunday") && (daysInMonth == 30)))
+                {
+                    chalendarCells = 43;
+                }
+                else
+                {
+                    chalendarCells = 36;
+                }
+
+                for (int i = 1; i < chalendarCells; i++)
+                {
+                    if((i -1) % 7 == 0)
+                    {
+                        @:<tr class="dayslots">
+                    }
+
+                    if ((i - monthStartIndex) >= 1 && (i - monthStartIndex) <= daysInMonth)
+                    {
+                        int day = i - monthStartIndex;
+                        DateTime selectedDate = firstDayOfMonth.AddDays(day - 1);
+                        var selectedDay = firstDayOfMonth.AddDays(day - 1).Day;
+                        
+                        <td class="monthlySlots">
+                            <a href="@Url.Action("DailyBookings","Booking", new {date=selectedDate})">@day</a>        
+                            <a class="new_booking"  href="@Url.Action("Create","Booking", new {date=selectedDate, starttime1=selectedDate.TimeOfDay, endtime1=selectedDate.TimeOfDay, roomname= ViewBag.SelectRoom})"></a>                        
+                                @{
+                                    var currentDateSlot = Model.DaySlots[day - 1];
+                                    <div class="booking_List">
+                                        @foreach (var booking in currentDateSlot.Slots)
+                                        {
+                                            if (selectedDay == booking.StartTime.Day)
+                                            {
+                                                if (booking.BookingType == "Internal")
+                                                {
+                                                    <div class="booked_cell" style="position:relative;"><a href="@Url.Action("Details", "Booking", new { id = booking.BookingId }, null)">@booking.StartTime.ToShortTimeString() - @booking.EndTime.ToShortTimeString() @booking.Title</a> </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="booked_cell2" style="position:relative;"><a href="@Url.Action("Details", "Booking", new { id = booking.BookingId }, null)">@booking.StartTime.ToShortTimeString() - @booking.EndTime.ToShortTimeString() @booking.Title</a> </div>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                }     
+                                 
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="background-color:#D1D9DE;"></td>
+                    }
+
+                    if(i % 7 == 0)
+                    {
+                        @:</tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+
+    <div class="paging_daily" style="clear:both;">
+        <div class="day_before">
+            <a href="@Url.Action("MonthlyBookings","Booking", new { date=Model.Today.AddMonths(-1).ToString("yyyy-MM-dd"), roomName=ViewBag.SelectRoom})"> << Go To Month Before </a>
+        </div>
+        <div class="day_of">
+            <a href="@Url.Action("MonthlyBookings","Booking", new { date= DateTime.Today, roomName=ViewBag.SelectRoom})"> Go To Current Month </a>
+        </div>
+        <div class="day_after">
+            <a href="@Url.Action("MonthlyBookings","Booking", new { date=Model.Today.AddMonths(1).ToString("yyyy-MM-dd"), roomName=ViewBag.SelectRoom})"> Go To Month After >> </a>
+        </div>
+    </div>
+
+    <div class="dayLinks">
+        @Helpers.view_day(Model.Today)
+        <br />
+        @Helpers.view_week(Model.Today, ViewBag.SelectRoom)
+        <br />
+        @Helpers.view_month(Model.Today, ViewBag.SelectRoom)
+    </div>
+</div>
+
+

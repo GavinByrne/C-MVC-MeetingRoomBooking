@@ -1,0 +1,502 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-size:small;
+    font-family: Arial, 'Arial Unicode MS', Verdana, sans-serif;
+    width:100%;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.container{
+   margin-right:50px;
+}
+
+.container.body-content{
+    width:100%;
+}
+
+.SelectedRooms{
+    padding-top:10px;
+    width:30%;
+    float:left;
+}
+
+.Date {
+    padding-top:0px;
+    margin:0px;
+    text-align:center;
+}
+
+.Date h3{
+    margin: 5px 0px 0px 0px;
+}
+
+.Date2 {
+    padding-top:0px;
+    margin:0px;
+    text-align:center;
+}
+
+.Date2 h3{
+    margin: 26px 0px 0px 0px;
+}
+
+/*Internal*/
+.isBooked {
+    background-color: #009393;
+    border-radius:6px;
+    text-align:center;
+    color:#ffffff;    
+}
+
+.isBooked a{
+    color:#ffffff;   
+    font-size:small; 
+}
+
+.isBooked a:hover{
+    text-decoration:underline;  
+}
+
+/*External*/
+.isBooked2 {
+    background-color: #BEDB39;
+    border-radius:6px;
+    text-align:center;
+    color:#ffffff;    
+}
+
+.isBooked2 a{
+    color:#ffffff;    
+}
+
+.Icon{
+    float:left; 
+}
+
+.Icon h4{
+    padding:0;
+    margin:0;
+    margin-top:10px;
+    text-align:center;
+    font-weight:500;
+}
+
+.Icon a{
+    padding:0;
+    margin:0;
+    text-align:center;
+    color:black;
+    font-size:large;
+}
+.tableDay{
+    padding-top:2px;
+}
+
+table.day_main{
+
+    clear:both;
+    width:100%;
+    border-spacing:0px;
+    border-collapse:separate;
+    border-color: #e7ebee;
+    border-width:0px;
+    border-style:solid;
+    padding:0;
+    border-right: 1px solid #e7ebee;
+    border-bottom: 1px solid #e7ebee;
+}
+table{
+    display:table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: grey;
+
+}
+
+.day_main th a:link{
+    color:#ffffff;
+    text-decoration:none;
+    font-weight:normal;
+}
+.day_main th a:hover{
+    text-decoration:underline;
+}
+
+.day_main th a:visited {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.day_main a{ 
+    display:block;
+    min-height:inherit;
+}
+
+.day_main th{
+    font-weight:normal;
+    color:#ffffff;
+    /*background-color:#04756F;*/
+    background-color:#a30b1a;
+    border-left: 1px solid #e7ebee;
+    padding:0;
+    text-align:center;
+}
+
+
+.day_main td.startTime{
+    background-color:#a90510;
+    /*background-color:#04756F;*/
+    color:#ffffff;   
+    white-space:nowrap;   
+    text-align:center;
+}
+
+.day_main td:first-child{
+    border-left:0;
+}
+
+.day_main td{
+    padding:0;
+    border-top: 1px solid #E7EBEE;
+    border-left: 1px solid #e7ebee;
+    border-bottom: 0;
+    border-right: 0;
+}
+
+.day_main td a.blockLink{
+    display:block; 
+    padding:10px; 
+
+}
+
+.day_main td a.blockLink:hover{
+     background-color:pink;
+}
+
+
+.navbar-inverse {
+  background-color: white;
+  border-color: #ED0100;
+  border-width: 0px 0px 1.5px 0px;
+  border-style:inset;
+  margin: 0% 1% 0% 1%;
+  position:absolute;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    margin-top:5px;
+    margin-right:20px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover{
+    color:black;
+    text-decoration:underline;        
+}
+
+.navbar-inverse .navbar-text{
+    margin-top:20px;
+    padding:0px;
+}
+
+.paging_daily a:hover{
+    color:black;
+}
+
+.paging_daily a:active{
+    color:black;
+}
+
+.paging_daily a{
+    color:black;
+    font-weight:bold;
+}
+
+.paging_daily {
+    width:100%;
+    text-align:center;  
+    color:black;
+    padding-top:4px;
+}
+
+.day_before{
+    width:20%;   
+    float:left;
+}
+
+.day_after{ 
+    width:20%;  
+    float:right;
+}
+
+.day_of{
+    width:20%;  
+    margin:0;
+    display: inline-block;
+}
+
+.calendar_Views2{
+    padding-top:5px;
+    display:inline-block;
+    width: 70%;
+    overflow:hidden;
+    margin:0;
+}
+
+.calendar_Views{
+    padding-top:5px;
+    width: 100%;
+    overflow:hidden;
+    margin:0;
+}
+
+.calendar_Views td{
+    padding: 0px 10px 0px 10px;
+}
+
+.month_before{
+    float:right;
+    padding:10px;
+}
+
+.month_before td{
+    padding: 0px 2px 0px 2px;
+}
+
+.month_of{
+    float:right;
+    padding:10px;
+}
+
+.month_of td{
+    padding: 0px 2px 0px 2px;
+}
+
+.month_after{
+    float:right;
+    padding:10px;
+    padding-bottom:0px;
+}
+
+.month_after td{
+    padding: 0px 2px 0px 2px;
+}
+
+.calendar_days a{
+    color:black;
+}
+
+/*.navbar-inverse .navbar-brand:hover{
+    color: #1695A3;
+    padding-bottom: 6px;
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.1);
+}*/
+
+.navbar-inverse .navbar-nav > li > a {
+    color:#424242;
+    border-bottom: 2px;
+    border-color: #1695A3;
+    font-size:17px;
+}
+
+/*.navbar-inverse .navbar-nav > li > a:hover{
+    color: #1695A3;
+    padding-bottom: 6px;
+    transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+    transform: scale(1.1);
+}*/
+
+.dayLinks  {
+    margin-top:5px;
+    padding-top:5px;
+    padding-bottom:5px;
+    border-top: 1px solid #ED0100;
+    border-bottom: 1px solid #ED0100;   
+}
+
+.dayLinks a{
+    color:black;
+    font-weight:bold;
+}
+
+.dayLinks a:hover{
+    color:red;
+    text-decoration:none;
+}
+
+.enddatetime{
+    clear:both;
+}
+
+.enddate{
+    float:left;
+    padding-left: 14.5px;
+}
+
+.endtime{
+    float:left;
+    padding-left: 10px;
+    padding-top: 7px;
+  
+}
+
+.startdatetime{
+    clear:both;
+    padding-bottom: 10px;
+
+}
+
+.startdate{
+    float:left;
+    padding-left: 14.5px;
+}
+
+.starttime{
+    float:left;
+    padding-left: 10px;
+    padding-top: 7px;   
+}
+
+.bookingtype{
+    padding-top:7px;
+    padding-left: 235px;
+
+}
+
+.room{
+    padding-top:7px;
+    padding-left: 235px;
+}
+
+.dayslots{
+    height:120px;
+}
+
+.monthlySlots{
+    vertical-align:top;
+    text-align:left;
+    font-weight:bold;
+    font-size:large; 
+}
+
+
+.RecContainer{
+    clear:both;
+    display:inline-block;
+    margin-top:30px;
+    margin-bottom:5px;
+}
+
+.rep_type{  
+    float:left;
+    margin-left:130px;
+    border-right: 1px solid red;
+}
+
+.rep_type ul{  
+margin-right:20px;
+}
+
+#MonthlyRepeatDetails,
+#WeeklyRepeatDetails{
+    margin-left:10px;
+    clear:both;
+    display:inline-block;
+    /*float:inherit;*/
+}
+
+.MonthlyRepeatDetails{
+    position:absolute;
+    margin-top:53px;
+
+    margin-left:10px;
+    clear:both;
+    display:inline-block;
+
+}
+
+#WeeklyRepeatDetails li{
+        display:inline-block;
+}
+
+.form-group-repend{
+    width:60%;
+    clear:both;
+    margin-bottom:60px;
+}
+.startdate{
+    width:130px;
+    padding:0px;
+    margin:0px;
+}
+
+.form-group-create{
+    display:inline-block;
+    margin-left:100px;
+}
+
+
+.monthlySlots:hover{
+    background-color:pink;
+}
+
+.monthlySlots a{ 
+    display:block;
+    color:black;
+    /*height:100%;*/
+}
+
+
+.monthlySlots .isBooked a{
+    color:#ffffff;
+}
+
+.day_main td a.new_booking{
+    display:block; 
+    height:95px;
+    position:absolute; 
+    width:190px;
+}
+
+.booking_List{
+    background-color: #009393;
+    max-height:85px;
+    position:relative;
+    overflow:auto;
+}
+
+.booked_cell2,
+.booked_cell {
+    background-color: #009393;
+    text-align:center;
+    color:#ffffff;    
+}
+
+.booked_cell2,
+.booked_cell a{
+    color:#ffffff;   
+    font-size:x-small; 
+}
+

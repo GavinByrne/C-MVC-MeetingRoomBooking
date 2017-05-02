@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRBS", "MRBS\MRBS.csproj", "{D30EA38A-EE8A-4173-BBA7-BF69FB8BA622}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingSystemData", "MRBSData\BookingSystemData.csproj", "{5E229E44-8BDF-4AE7-9090-A3354D1A2443}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D30EA38A-EE8A-4173-BBA7-BF69FB8BA622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D30EA38A-EE8A-4173-BBA7-BF69FB8BA622}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D30EA38A-EE8A-4173-BBA7-BF69FB8BA622}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D30EA38A-EE8A-4173-BBA7-BF69FB8BA622}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E229E44-8BDF-4AE7-9090-A3354D1A2443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E229E44-8BDF-4AE7-9090-A3354D1A2443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E229E44-8BDF-4AE7-9090-A3354D1A2443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E229E44-8BDF-4AE7-9090-A3354D1A2443}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://fujitsuireland-fit.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MRBS\\MRBS.csproj
+		SccProjectName1 = MRBS
+		SccLocalPath1 = MRBS
+		SccProjectUniqueName2 = MRBSData\\BookingSystemData.csproj
+		SccProjectName2 = MRBSData
+		SccLocalPath2 = MRBSData
+	EndGlobalSection
+EndGlobal

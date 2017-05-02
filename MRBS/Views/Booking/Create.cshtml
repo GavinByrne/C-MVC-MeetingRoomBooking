@@ -1,0 +1,224 @@
+﻿@model MRBS.Models.BookingEdit
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Booking</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <h4 style="color:red">@ViewBag.Error</h4>
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Confirmation, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Confirmation)
+                    @Html.ValidationMessageFor(model => model.Confirmation, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="startdate" style="display:none">
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control datepicker", type = "text", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="startdate">
+                @Html.TextBox("StartDateText", Model.StartDate.ToShortDateString(), htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+            </div>
+
+            <div class="starttime" style="display:none">
+                @Html.DropDownList("StartTime", Model.StartTimeDropDown)
+            </div>
+            <div class="starttime">
+                @Html.TextBox("StartTimeText", Model.StartTimeDropDown.First().Text, htmlAttributes: new { @*@class = "form-control",*@ @readonly = "readonly", @disabled = "disabled" }) 
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="enddate" style="display:none">
+                @Html.EditorFor(model => model.EndDate, new {  htmlAttributes = new { @class = "form-control datepicker", type = "text", @readonly = "readonly"@*disabled = "disabled"*@ } })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="enddate">
+                @Html.TextBox("EndDateText", Model.StartDate.ToShortDateString(), htmlAttributes: new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+            </div>
+            <div class="endtime">
+                @Html.DropDownList("EndTime", Model.EndTimeDropDown)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BookingType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="bookingtype">
+                @Html.DropDownList("BookingType", Model.BookingTypeDropDown)
+            </div>
+        </div>
+
+        <div class="form-group" >
+            @Html.LabelFor(model => model.RoomsDropDown, "Room", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="room">
+                @Html.ListBox("RoomIds", Model.RoomsDropDown)
+            </div>
+        </div>
+
+        <div class="RecContainer">
+
+            <div class="rep_type">
+                <label>Repeat type:</label>
+                <div class="group">
+                    <ul style="list-style-type:none;">
+                        <li>
+                            @Html.RadioButton("option", "None", true, new { id = "NoRecurring" })<text> None </text>
+                        </li>
+                        <li>
+                            @Html.RadioButton("option", "Daily", new { id = "DailyNone" }) <text> Daily </text>
+                        </li>
+                        <li>
+                            @Html.RadioButton("option", "Weekly", new { id = "WeeklyRepeat" })<text> Weekly </text>
+                        </li>
+                        <li>
+                            @Html.RadioButton("option", "Monthly", new { id = "MonthlyRepeat" })<text> Monthly </text>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="WeeklyRepeatDetails" style="display:none">
+                <label>Repeat Day:</label>
+
+                    <ul style="list-style-type:none;">
+                        
+                            @for (int i = 0; i < Model.DayList.Count(); i++)
+                            {
+                                <li>
+                                    @Html.HiddenFor(d => d.DayList[i].DateOfDay)
+                                    @Html.HiddenFor(d => d.DayList[i].DayIndex)
+                                    @Html.HiddenFor(d => d.DayList[i].DayOfWeek)
+                                    @Html.CheckBoxFor(d => d.DayList[i].isSelected)
+                                    @Html.LabelFor(d => d.DayList[i].isSelected, Model.DayList[i].DayOfWeek.Substring(0, 3))
+                                </li>
+                            }
+                        </ul>
+                <div class="Increment">
+                    @Html.Label("Increment")
+                    @Html.TextBox("Increment", 1)
+
+                    @*<label for="Increment">Repeat Every :</label>
+            <input id="Increment" type="number" min="1" max="52" step="1" value="1" required="true" />*@
+                </div>
+            </div>
+
+            <div id="MonthlyRepeatDetails" style="display:none">
+                @*<text> Monthly </text>*@
+                @Html.RadioButton("monthlyoption", "Day", true) <text> On day </text>
+
+                <div class="dayofmonth">
+                    @Html.DropDownList("DayOfMonth", Model.DayOfMonthDropDown)
+                </div>
+
+                @Html.RadioButton("monthlyoption", "Increment") <text> On the </text>
+
+                <div class="monthlyincrement">
+                    @Html.DropDownList("MonthIncrement", Model.MonthIncrementDropDown)
+                </div>
+
+                <div class="monthlyday">
+                    @Html.DropDownList("MonthDay", Model.MonthDayDropDown)
+                </div>
+
+            </div>
+            </div>
+
+        </div>
+
+        @Html.HiddenFor(x => x.ViewName)
+
+        @Html.HiddenFor(x => x.ViewRoomName)
+   
+        <div class="form-group-repend">
+            @Html.LabelFor(model => model.RepeadEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="startdate">
+                @Html.EditorFor(model => model.RepeadEnd, new { htmlAttributes = new { @class = "form-control datepicker", type = "text" } })
+                @Html.ValidationMessageFor(model => model.RepeadEnd, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group-create">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+            <div>
+                @Html.ActionLink("Back to List", "DailyBookings", new { date = ViewBag.date }, null)
+            </div>
+        </div>
+
+        <div class="dayLinks">
+            @Helpers.view_day(DateTime.Now)
+            <br />
+            @Helpers.view_week(DateTime.Now, "Rush")
+            <br />
+            @Helpers.view_month(DateTime.Now, "Rush")
+        </div>
+}
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(function () { 
+            $('.datepicker').datepicker({ dateFormat: "dd/mm/yy" }).attr('type', 'text');
+
+            $('#WeeklyRepeat').click(function () {
+                $('#WeeklyRepeatDetails').show();
+                $('#MonthlyRepeatDetails').hide();
+            });
+
+            $('#MonthlyRepeat').click(function () {
+                $('#MonthlyRepeatDetails').show();
+                $('#WeeklyRepeatDetails').hide();
+            });
+
+            $('#NoRecurring').click(function () {
+                $('#MonthlyRepeatDetails').hide();
+                $('#WeeklyRepeatDetails').hide();
+            });
+
+            $('#DailyNone').click(function () {
+                $('#MonthlyRepeatDetails').hide();
+                $('#WeeklyRepeatDetails').hide();
+            });
+
+
+        });
+    </script>
+}

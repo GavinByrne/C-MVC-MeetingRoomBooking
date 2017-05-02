@@ -1,0 +1,124 @@
+﻿
+@helper calendar(DateTime date, int year, int month, string actionName, string selectedRoom)
+{
+
+    int calendarIndex;
+    int daysInMonth = DateTime.DaysInMonth(year, month);
+    var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+    var monthStartIndex = (((int)firstDayOfMonth.DayOfWeek) + 6) % 7;
+    System.Web.Mvc.UrlHelper urlHelper = new System.Web.Mvc.UrlHelper(Request.RequestContext);
+
+    <table>
+        <TR>
+            <TD COLSPAN="7" ALIGN=center><B>@date.ToString("MMMM yyyy")</B></TD>
+        </TR>
+        <TR>
+            <TD ALIGN=center>Mon</TD>
+            <TD ALIGN=center>Tue</TD>
+            <TD ALIGN=center>Wed</TD>
+            <TD ALIGN=center>Thu</TD>
+            <TD ALIGN=center>Fri</TD>
+            <TD ALIGN=center>Sat</TD>
+            <TD ALIGN=center>Sun</TD>
+        </TR>
+
+        @for (calendarIndex = 1; calendarIndex < 43; calendarIndex++)
+        {
+            if ((calendarIndex - 1) % 7 == 0)
+            {
+                @:<tr>
+            }
+
+            if ((calendarIndex - monthStartIndex) >= 1 && (calendarIndex - monthStartIndex) <= daysInMonth)
+            {
+                int day = calendarIndex - monthStartIndex;
+                var selectedDay = firstDayOfMonth.AddDays(day - 1);
+                <td align="center">
+                    @if (actionName == "DailyBookings")
+                    {
+                        <a style="color:black; font-size:smaller; font-weight:bold;" href='@urlHelper.Action(actionName, "Booking", new { date = selectedDay.ToString("yyyy-MM-dd")})'> @day </a>
+                    }
+                    else
+                    {
+                        
+                        <a style="color:black; font-size:smaller; font-weight:bold;" href='@urlHelper.Action(actionName, "Booking", new { date = selectedDay.AddDays(-(((int)selectedDay.DayOfWeek) + 6) % 7), roomName = selectedRoom })'> @day </a>
+                    }
+                </td>
+            }
+            else
+            {
+                <td align="center"> </td>
+            }
+
+            if (calendarIndex % 7 == 0)
+            {
+                @:</tr>                            
+          }
+        }
+    </table>
+}
+    
+@helper view_day(DateTime date)
+{
+
+    System.Web.Mvc.UrlHelper urlHelper = new System.Web.Mvc.UrlHelper(Request.RequestContext);
+
+    <a href='@urlHelper.Action("DailyBookings","Booking", new { _date = date.ToString("yyyy-MM-dd")})'> View Day:      </a>
+
+    for (int i = -7; i < 0; i++)
+    {
+        <a href='@urlHelper.Action("DailyBookings","Booking", new { date = date.AddDays(i).ToString("yyyy-MM-dd")})'> @date.AddDays(i).ToString("MMM d")  |</a>
+    }
+
+    <a style="color:red; font-weight:bold;" href='@urlHelper.Action("DailyBookings","Booking", new { date = date.ToString("yyyy-MM-dd")})'> [@date.ToString("MMM d")] </a>
+
+    for (int i = 1; i < 8; i++)
+    {
+        <a href='@urlHelper.Action("DailyBookings","Booking", new { date = date.AddDays(i).ToString("yyyy-MM-dd")})'>| @date.AddDays(i).ToString("MMM d")  </a>
+    }
+}
+
+@helper view_week(DateTime date, string selectedRoom)
+{
+    var currentday = date.DayOfWeek.ToString();
+    DateTime firstDayOfWeek = date.AddDays(-(((int)date.DayOfWeek) + 6) % 7);
+
+    System.Web.Mvc.UrlHelper urlHelper = new System.Web.Mvc.UrlHelper(Request.RequestContext);
+
+    <a href='@urlHelper.Action("WeeklyBookings","Booking", new { date = firstDayOfWeek, roomName = selectedRoom})'> View Week: </a>
+
+    for (int i = -28; i <= -7; i += 7)
+    {
+            <a href='@urlHelper.Action("WeeklyBookings", "Booking", new { date = firstDayOfWeek.AddDays(i).ToString("yyyy-MM-dd"), roomName = selectedRoom })'> @firstDayOfWeek.AddDays(i).ToString("MMM d")  |</a>
+    }
+    
+    <a style="color:red; font-weight:bold;" href='@urlHelper.Action("WeeklyBookings","Booking", new { date = firstDayOfWeek.ToString("yyyy-MM-dd"), roomName = selectedRoom})'> [@firstDayOfWeek.ToString("MMM d")] </a>
+
+    for (int i = 7; i <= 28; i += 7)
+    {
+            <a href='@urlHelper.Action("WeeklyBookings", "Booking", new { date = firstDayOfWeek.AddDays(i).ToString("yyyy-MM-dd"), roomName = selectedRoom })'>| @firstDayOfWeek.AddDays(i).ToString("MMM d")  </a>
+    }
+}
+
+
+@helper view_month(DateTime date, string selectedRoom)
+{
+
+    System.Web.Mvc.UrlHelper urlHelper = new System.Web.Mvc.UrlHelper(Request.RequestContext);
+
+    <a href='@urlHelper.Action("MonthlyBookings","Booking", new { _date = date.ToString("yyyy-MM-dd"), roomName = selectedRoom })'> View Month:     </a>
+
+    for (int i = -2; i < 0; i++)
+    {
+        <a href='@urlHelper.Action("MonthlyBookings","Booking", new { date = date.AddMonths(i).ToString("yyyy-MM-dd"), roomName = selectedRoom })'> @date.AddMonths(i).ToString("MMM yyyy")  |</a>
+    }
+
+    <a style="color:red; font-weight:bold;" href='@urlHelper.Action("MonthlyBookings","Booking", new { date = date.ToString("yyyy-MM-dd"), roomName = selectedRoom })'> [@date.ToString("MMM yyyy")] </a>
+
+    for (int i = 1; i < 7; i++)
+    {
+        <a href='@urlHelper.Action("MonthlyBookings","Booking", new { date = date.AddMonths(i).ToString("yyyy-MM-dd"), roomName = selectedRoom })'>| @date.AddMonths(i).ToString("MMM yyyy")  </a>
+    }
+}
+
+
